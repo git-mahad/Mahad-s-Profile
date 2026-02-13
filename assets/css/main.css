@@ -368,19 +368,78 @@ h6 {
   color: var(--default-color);
   background-color: var(--background-color);
   font-size: 14px;
-  padding: 40px 0;
+  padding: 60px 0 40px;
   position: relative;
   border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
-.footer .copyright p {
-  margin-bottom: 0;
+.footer .footer-content {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.footer .credits {
-  margin-top: 4px;
-  font-size: 13px;
-  text-align: center;
+.footer .footer-cta .btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--accent-color), transparent 80%);
+}
+
+.footer .footer-cta .btn-cta:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 85%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-color), transparent 70%);
+  color: var(--contrast-color);
+}
+
+.footer .footer-cta .btn-cta i {
+  font-size: 18px;
+}
+
+.footer .footer-tagline p {
+  font-size: 16px;
+  color: var(--default-color);
+  margin-bottom: 0;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.footer .footer-copyright p {
+  font-size: 14px;
+  color: var(--default-color);
+  margin-bottom: 0;
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 0 30px;
+  }
+  
+  .footer .footer-cta .btn-cta {
+    font-size: 14px;
+    padding: 12px 24px;
+  }
+  
+  .footer .footer-cta .btn-cta i {
+    font-size: 16px;
+  }
+  
+  .footer .footer-tagline p {
+    font-size: 14px;
+  }
+  
+  .footer .footer-copyright p {
+    font-size: 13px;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -1139,6 +1198,143 @@ section,
 
 .contact .php-email-form button[type=submit]:hover {
   background: color-mix(in srgb, var(--accent-color), transparent 25%);
+}
+
+/* Availability Status Component */
+.contact .availability-status {
+  background-color: var(--surface-color);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-bottom: 40px;
+  border-radius: 8px;
+  border-left: 4px solid var(--accent-color);
+}
+
+.contact .availability-status .status-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.contact .availability-status .status-header i {
+  font-size: 24px;
+  color: var(--accent-color);
+  background: color-mix(in srgb, var(--accent-color), transparent 92%);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+}
+
+.contact .availability-status .status-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--heading-color);
+}
+
+.contact .availability-status .status-indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: color-mix(in srgb, var(--accent-color), transparent 95%);
+  border-radius: 6px;
+}
+
+.contact .availability-status .status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+  animation: pulse 2s infinite;
+}
+
+.contact .availability-status .status-dot.available {
+  background-color: #28a745;
+}
+
+.contact .availability-status .status-text {
+  font-weight: 600;
+  color: var(--default-color);
+  font-size: 15px;
+}
+
+.contact .availability-status .status-details p {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: var(--default-color);
+  line-height: 1.5;
+}
+
+.contact .availability-status .status-details strong {
+  color: var(--heading-color);
+}
+
+.contact .availability-status .status-contact {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.contact .availability-status .btn-contact {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact .availability-status .btn-contact:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 25%);
+  transform: translateY(-2px);
+}
+
+.contact .availability-status .btn-contact i {
+  font-size: 16px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+  }
+}
+
+@media (max-width: 575px) {
+  .contact .availability-status {
+    padding: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .contact .availability-status .status-header {
+    margin-bottom: 15px;
+  }
+  
+  .contact .availability-status .status-header i {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .contact .availability-status .status-header h3 {
+    font-size: 16px;
+  }
 }
 
 /*--------------------------------------------------------------
