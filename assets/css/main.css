@@ -1002,6 +1002,39 @@ section,
   font-size: 14px;
 }
 
+.services .service-item .tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.services .service-item .tech-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  color: var(--accent-color);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
+}
+
+.services .service-item:hover .tech-tag {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px color-mix(in srgb, var(--accent-color), transparent 50%);
+}
+
+.services .service-item .tech-tag:hover {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-color), transparent 40%);
+}
+
 /*--------------------------------------------------------------
 # Testimonials Section
 --------------------------------------------------------------*/
