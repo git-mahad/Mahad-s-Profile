@@ -1,0 +1,18 @@
+# dependencies
+/node_modules
+
+# compiled output
+/dist
+/build
+
+# env (NEVER commit real credentials)
+.env
+
+# logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+.idea
+.vscode

@@ -261,9 +261,9 @@
   }
 
   /**
-   * Web3Forms contact form handler (static-host friendly, expects JSON response)
+   * Contact form handler — posts JSON to the NestJS backend (/api/contact)
    */
-  document.querySelectorAll('.web3-form').forEach(function(form) {
+  document.querySelectorAll('.contact-form').forEach(function(form) {
     form.addEventListener('submit', function(event) {
       event.preventDefault();
 
@@ -275,12 +275,16 @@
       errorMessage.classList.remove('d-block');
       sentMessage.classList.remove('d-block');
 
-      const formData = new FormData(form);
+      // Collect all named fields (name, email, subject, message, botcheck)
+      const payload = Object.fromEntries(new FormData(form).entries());
 
       fetch(form.getAttribute('action'), {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
       })
       .then(response => response.json().then(data => ({ ok: response.ok, data })))
       .then(({ ok, data }) => {
@@ -289,7 +293,8 @@
           sentMessage.classList.add('d-block');
           form.reset();
         } else {
-          throw new Error(data.message || 'Something went wrong. Please try again.');
+          const msg = Array.isArray(data.message) ? data.message.join(', ') : data.message;
+          throw new Error(msg || 'Something went wrong. Please try again.');
         }
       })
       .catch(error => {
