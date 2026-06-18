@@ -226,4 +226,78 @@
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
 
+  /**
+   * Dark / light theme toggle (persisted in localStorage)
+   */
+  const themeToggleBtn = document.querySelector('#theme-toggle');
+  if (themeToggleBtn) {
+    const themeIcon = themeToggleBtn.querySelector('i');
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeIcon.classList.remove('bi-moon-stars');
+        themeIcon.classList.add('bi-sun');
+      } else {
+        document.body.classList.remove('dark-theme');
+        themeIcon.classList.remove('bi-sun');
+        themeIcon.classList.add('bi-moon-stars');
+      }
+    }
+
+    let storedTheme = 'light';
+    try {
+      storedTheme = localStorage.getItem('theme') || 'light';
+    } catch (e) { /* localStorage unavailable */ }
+    applyTheme(storedTheme);
+
+    themeToggleBtn.addEventListener('click', function() {
+      const next = document.body.classList.contains('dark-theme') ? 'light' : 'dark';
+      applyTheme(next);
+      try {
+        localStorage.setItem('theme', next);
+      } catch (e) { /* ignore */ }
+    });
+  }
+
+  /**
+   * Web3Forms contact form handler (static-host friendly, expects JSON response)
+   */
+  document.querySelectorAll('.web3-form').forEach(function(form) {
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const loading = form.querySelector('.loading');
+      const errorMessage = form.querySelector('.error-message');
+      const sentMessage = form.querySelector('.sent-message');
+
+      loading.classList.add('d-block');
+      errorMessage.classList.remove('d-block');
+      sentMessage.classList.remove('d-block');
+
+      const formData = new FormData(form);
+
+      fetch(form.getAttribute('action'), {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(response => response.json().then(data => ({ ok: response.ok, data })))
+      .then(({ ok, data }) => {
+        loading.classList.remove('d-block');
+        if (ok && data.success) {
+          sentMessage.classList.add('d-block');
+          form.reset();
+        } else {
+          throw new Error(data.message || 'Something went wrong. Please try again.');
+        }
+      })
+      .catch(error => {
+        loading.classList.remove('d-block');
+        errorMessage.innerHTML = error.message;
+        errorMessage.classList.add('d-block');
+      });
+    });
+  });
+
 })();
